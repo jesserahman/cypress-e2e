@@ -1,3 +1,5 @@
+import LoginPage from '../support/PageObjects/LoginPage'
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +25,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+
+Cypress.Commands.add("login", (username, password) => {
+  LoginPage.clearCookiesAndLocalStorage()
+  LoginPage.fillInUsername(username)
+  LoginPage.fillInPassword(password)
+  LoginPage.submitForm()
+})

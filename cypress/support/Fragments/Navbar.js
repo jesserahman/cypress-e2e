@@ -11,6 +11,14 @@ class Navbar {
     cy.get("#feedback").click()
   }
 
+  static clickUsernameLink(){
+    cy.get('.dropdown-toggle').contains('username').click()
+  }
+
+  static clickLogoutButton(){
+    cy.get('#logout_link') .click()
+  }
+
 }
 
 export default Navbar

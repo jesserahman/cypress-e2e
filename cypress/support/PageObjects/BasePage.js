@@ -3,6 +3,11 @@ class BasePage {
     cy.wait(number)
   }
 
+  static clearCookiesAndLocalStorage(){
+    cy.clearCookies()
+    cy.clearLocalStorage()
+  }
+
   static getUrl(){
     return cy.url()
   }

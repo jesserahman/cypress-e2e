@@ -1,0 +1,6 @@
+{
+  "invalid_username": "test",
+  "invalid_password" : "qwerty",
+  "valid_username": "username",
+  "valid_password" : "password"
+}
