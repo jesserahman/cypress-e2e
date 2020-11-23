@@ -19,6 +19,10 @@ class Navbar {
     cy.get('#logout_link') .click()
   }
 
+  static clickPayBillsTab(){
+    cy.get('#pay_bills_tab') .click()
+  }
+
 }
 
 export default Navbar
