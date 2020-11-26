@@ -16,14 +16,20 @@ describe('Add new payee', () => {
   })
 
   it('add new payee and verify success message', () => {
+    let currencyAmount = 150;
+
     Navbar.clickPayBillsTab()
-    PayBillsPage.selectPayeeFromDropdown('Apple')
-    PayBillsPage.selectAccountFromDropdown('Credit Card')
-    PayBillsPage.enterAmount("40")
-    PayBillsPage.enterDate('2020-3-10 {enter}')
-    PayBillsPage.enterDescription('test')
-    PayBillsPage.clickPay()
-    PayBillsPage.verifyPaymentSuccess()
+    PayBillsPage.clickPurchaseForeignCurrencyButton()
+    PayBillsPage.selectCurrency('Eurozone (euro)')
+    PayBillsPage.addCurrencyAmount(currencyAmount)
+    PayBillsPage.selectUSDCurrency()
+    PayBillsPage.clickCalculateCosts()
+    PayBillsPage.verifyConversionAmount(currencyAmount)
+    PayBillsPage.clickPurchase()
+  })
+
+  it('verifies the payment amount', () => {
+    PayBillsPage.verifySuccessMessage()
   })
 
 })

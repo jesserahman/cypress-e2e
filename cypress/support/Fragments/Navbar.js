@@ -23,6 +23,14 @@ class Navbar {
     cy.get('#pay_bills_tab') .click()
   }
 
+  static clickTranferFundsTab(){
+    cy.get('#transfer_funds_tab') .click()
+  }
+
+  static clickAccountActivityTab(){
+    cy.get('#account_activity_tab') .click()
+  }
+
 }
 
 export default Navbar

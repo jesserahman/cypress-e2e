@@ -5,6 +5,10 @@ class PayBillPage extends BasePage {
     cy.get('a').contains('Add New Payee').click()
   }
 
+  static clickPurchaseForeignCurrencyButton() {
+    cy.get('a').contains('Purchase Foreign Currency').click()
+  }
+
   static fillInPayeeName(name){
     cy.get('#np_new_payee_name').clear().type(name)
   }
@@ -45,10 +49,6 @@ class PayBillPage extends BasePage {
     cy.get('#sp_date').clear().type(date)
   }
 
-  static clickOutOfCalendar(){
-    cy.get('#sp_amount').click()
-  }
-
   static enterDescription(description){
     cy.get('#sp_description').clear().type(`${description} {enter} `)
   }
@@ -59,6 +59,34 @@ class PayBillPage extends BasePage {
 
   static verifyPaymentSuccess(){
     cy.get('#alert_content').should('contain.text', 'The payment was successfully submitted.')
+  }
+
+  static selectCurrency(value){
+    cy.get('#pc_currency').select(`${value}`)
+  }
+
+  static addCurrencyAmount(value){
+    cy.get('#pc_amount').clear().type(`${value}`)
+  }
+
+  static selectUSDCurrency(){
+    cy.get('#pc_inDollars_true').click()
+  }
+
+  static clickCalculateCosts(){
+    cy.get('#pc_calculate_costs').click()
+  }
+
+  static verifyConversionAmount(currenyAmount){
+    cy.get('#pc_conversion_amount').should('contain.text', `${currenyAmount}`)
+  }
+
+  static clickPurchase(){
+    cy.get('input[type=submit]').contains('Purchase').click()
+  }
+
+  static verifySuccessMessage(){
+    cy.get('#alert_content').should('contain.text',  'Foreign currency cash was successfully purchased.')
   }
 
 }
