@@ -1,4 +1,4 @@
-import LoginPage from '../support/PageObjects/LoginPage'
+import {loginPage} from '../support/PageObjects/LoginPage'
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -25,11 +25,3 @@ import LoginPage from '../support/PageObjects/LoginPage'
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
-
-Cypress.Commands.add("login", (username, password) => {
-  LoginPage.clearCookiesAndLocalStorage()
-  LoginPage.fillInUsername(username)
-  LoginPage.fillInPassword(password)
-  LoginPage.submitForm()
-})

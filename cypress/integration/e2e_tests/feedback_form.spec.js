@@ -1,19 +1,19 @@
-import HomePage from '../../support/PageObjects/HomePage'
-import Navbar from '../../support/Fragments/Navbar'
-import FeedbackPage from '../../support/PageObjects/FeedbackPage'
+import {navbar} from '../../support/Fragments/Navbar'
+import {feedbackPage} from '../../support/PageObjects/feedbackPage'
 
-describe('test forgot password', () => {
+describe('verify user can submit feedback form on feedback page', () => {
   before(function() {
-    HomePage.loadPage()
+    feedbackPage.loadPage()
   })
 
   it('verifies user can click forgot password link, and verify forgot password functionality', () => {
     Navbar.clickFeedbackLink()
-    FeedbackPage.veryPageTitle()
-    FeedbackPage.fillOutName("Test User")
-    FeedbackPage.fillOutEmail("test@user.com")
-    FeedbackPage.fillOutSubject("Test Subject")
-    FeedbackPage.fillOutMessageBody("test question here?")
-    FeedbackPage.submitFormAndVerifySubmission()
+    feedbackPage.veryPageTitle()
+    feedbackPage.fillOutName("Test User")
+    feedbackPage.fillOutEmail("test@user.com")
+    feedbackPage.fillOutSubject("Test Subject")
+    feedbackPage.fillOutMessageBody("test question here?")
+    feedbackPage.submitFormAndVerifySubmission()
+    this.getFormSubmitMessage().should('be.visible')
   })
 })

@@ -1,34 +1,58 @@
 import BasePage from './BasePage'
 
 class LoginPage extends BasePage {
-  static loadPage() {
+  // Functions for getting web elements
+  getForgotPasswordLink(){
+    return cy.get('a').contains('Forgot your password ?');
+  }
+
+  getUserLoginInputField(){
+    return cy.get('#user_login');
+  }
+
+  getPasswordInputField(){
+    return cy.get('#user_password');
+  }
+
+  getSubmitFormButton(){
+    return cy.get('input').contains('Sign in')
+  }
+
+  getAlertMessage(){
+    return cy.get('.alert-error');
+  }
+
+  // Fuctions for page actions
+  loadPage() {
     cy.visit('http://zero.webappsecurity.com/login.html')
   }
 
-  static clearCookiesAndLocalStorage(){
-    return super.clearCookiesAndLocalStorage()
+  clickForgotPasswordLink(){
+    this.getForgotPasswordLink().click()
   }
 
-  static clickForgotPasswordLink(){
-    cy.get('a').contains('Forgot your password ?').click()
+  fillInUsername(username){
+    this.getUserLoginInputField().clear().type(username, {delay: 100})
   }
 
-  static fillInUsername(username){
-    cy.get('#user_login').clear().type(username, {delay: 100})
+  fillInPassword(password){
+    this.getPasswordInputField().clear().type(password)
   }
 
-  static fillInPassword(password){
-    cy.get("#user_password").clear().type(password)
+  submitForm(){
+    this.getSubmitFormButton().click()
   }
 
-  static submitForm(){
-    cy.get('input').contains('Sign in').click()
+  verifyErrorMessage(){
+    this.getAlertMessage().should('be.visible')
   }
 
-  static verifyErrorMessage(){
-    cy.get('.alert-error').should('be.visible')
+  login(username, password){
+    this.clearCookiesAndLocalStorage()
+    this.fillInUsername(username)
+    this.fillInPassword(password)
+    this.submitForm()
   }
-
 }
 
-export default LoginPage
+export const loginPage = new LoginPage();

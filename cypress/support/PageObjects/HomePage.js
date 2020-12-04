@@ -1,17 +1,22 @@
 import BasePage from './BasePage'
 
 class HomePage extends BasePage {
-  static loadPage() {
-    cy.visit('http://zero.webappsecurity.com')
+  // add all selector strings
+  url = 'http://zero.webappsecurity.com';
+  searchField = '#searchTerm';
+  signInButton = '#signin_button'
+
+  loadPage() {
+    cy.visit(this.url)
   }
 
-  static searchForTextAndPressEnter(text){
-    cy.get('#searchTerm').clear().type(`${text} {enter}`)
+  searchForTextAndPressEnter(text){
+    cy.get(this.searchField).clear().type(`${text} {enter}`)
   }
 
-  static clickSignInButton(){
-    cy.get('#signin_button').click()
+  clickSignInButton(){
+    cy.get(signInButton).click()
   }
 }
 
-export default HomePage
+export const homePage = new HomePage();

@@ -3,4 +3,4 @@ import BasePage from './BasePage'
 class OnlineBanking extends BasePage {
 }
 
-export default OnlineBanking
+export const onlineBankingPage = new OnlineBanking()

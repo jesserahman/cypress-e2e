@@ -1,36 +1,42 @@
 class Navbar {
-  static clickHomeLink(){
+
+  clickHomeLink(){
     cy.get('#homeMenu').click();
   }
 
-  static clickOnlineBankingLink(){
+  clickOnlineBankingLink(){
     cy.get("#onlineBankingMenu").click()
   }
 
-  static clickFeedbackLink(){
+  clickFeedbackLink(){
     cy.get("#feedback").click()
   }
 
-  static clickUsernameLink(){
+  clickUsernameLink(){
     cy.get('.dropdown-toggle').contains('username').click()
   }
 
-  static clickLogoutButton(){
+  clickLogoutButton(){
     cy.get('#logout_link') .click()
   }
 
-  static clickPayBillsTab(){
+  clickPayBillsTab(){
     cy.get('#pay_bills_tab') .click()
   }
 
-  static clickTranferFundsTab(){
+  clickTranferFundsTab(){
     cy.get('#transfer_funds_tab') .click()
   }
 
-  static clickAccountActivityTab(){
+  clickAccountActivityTab(){
     cy.get('#account_activity_tab') .click()
+  }
+
+  logout(){
+    this.clickUsernameLink();
+    this.clickLogoutButton();
   }
 
 }
 
-export default Navbar
+export const navbar = new Navbar();

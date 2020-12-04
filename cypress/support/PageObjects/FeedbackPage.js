@@ -1,32 +1,72 @@
 import BasePage from './BasePage'
 
 class FeedbackPage extends BasePage {
-  static veryPageTitle(){
-    cy.get('#feedback-title').should('be.visible')
+
+  // get web elements
+  getPageTitle(){
+    return cy.get('#feedback-title')
   }
 
-  static fillOutName(name){
-    cy.get('#name').clear().type(name)
+  getNameField(){
+    return cy.get('#name');
   }
 
-  static fillOutEmail(email){
-    cy.get('#email').clear().type(email)
+  getEmailField(){
+    return cy.get('#email');
   }
 
-  static fillOutSubject(subject){
-    cy.get('#subject').clear().type(subject)
+  getSubjectField(){
+    return cy.get('#subject');
   }
 
-  static fillOutMessageBody(body){
-    cy.get('#comment').clear().type(body)
+  getCommentField(){
+    return cy.get('#subject');
   }
 
-  static submitFormAndVerifySubmission(){
-    cy.get('input[type=submit]').click()
-    cy.get('div.offset3.span6')
-      .contains('Thank you for your comments')
-      .should('be.visible')
+  getSubmitButton(){
+    return cy.get('input[type=submit]')
   }
+
+  getFormSubmitMessage(){
+    return cy.get('div.offset3.span6').contains('Thank you for your comments')
+  }
+
+
+  // actions
+  loadPage(){
+    cy.visit('http://zero.webappsecurity.com');
+  }
+
+  fillOutName(name){
+    this.getNameField().clear().type(name)
+  }
+
+  fillOutEmail(email){
+    this.getEmailField().clear().type(email)
+  }
+
+  fillOutSubject(subject){
+    this.getSubjectField().clear().type(subject)
+  }
+
+  fillOutMessageBody(body){
+    this.getCommentField().clear().type(body)
+  }
+
+  clickSubmitButton(){
+    this.getSubmitButton.click()
+  }
+
+  // verifications
+
+  verifyPageTitle(){
+    this.getPageTitle().should('be.visible')
+  }
+
+  verifyFormSubmit(){
+    cy.get('div.offset3.span6').contains('Thank you for your comments')
+  }
+
 }
 
-export default FeedbackPage
+export const feedbackPage = new FeedbackPage();

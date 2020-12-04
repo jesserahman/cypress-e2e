@@ -1,16 +1,14 @@
-import HomePage from '../../support/PageObjects/HomePage'
-import SearchResultsPage from '../../support/PageObjects/SearchResultsPage'
+import {homePage} from '../../support/PageObjects/HomePage'
+import {searchResultsPage} from '../../support/PageObjects/SearchResultsPage'
 
 describe('test search functionality', () => {
+
   before(function() {
-    HomePage.loadPage()
+    homePage.loadPage()
   })
 
-  it('enters text into the search bar and search', () => {
-    HomePage.searchForTextAndPressEnter("hello")
-  })
-
-  it('should show search results page', () => {
-    SearchResultsPage.verifyPageTitle()
+  it('should search for a keyword and verify results', () => {
+    homePage.searchForTextAndPressEnter("hello")
+    searchResultsPage.verifyPageTitle()
   })
 })

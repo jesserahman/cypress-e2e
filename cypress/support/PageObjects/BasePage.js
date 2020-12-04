@@ -1,14 +1,19 @@
 class BasePage {
-  static wait(number) {
+
+  getBaseUrl(){
+    return 'http://zero.webappsecurity.com'
+  }
+
+  wait(number) {
     cy.wait(number)
   }
 
-  static clearCookiesAndLocalStorage(){
+  clearCookiesAndLocalStorage(){
     cy.clearCookies()
     cy.clearLocalStorage()
   }
 
-  static getUrl(){
+  getUrl(){
     return cy.url()
   }
 }
