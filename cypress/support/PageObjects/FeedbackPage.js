@@ -20,7 +20,7 @@ class FeedbackPage extends BasePage {
   }
 
   getCommentField(){
-    return cy.get('#subject');
+    return cy.get('#comment');
   }
 
   getSubmitButton(){
@@ -34,7 +34,7 @@ class FeedbackPage extends BasePage {
 
   // actions
   loadPage(){
-    cy.visit('http://zero.webappsecurity.com');
+    cy.visit('http://zero.webappsecurity.com/feedback.html');
   }
 
   fillOutName(name){
@@ -54,17 +54,13 @@ class FeedbackPage extends BasePage {
   }
 
   clickSubmitButton(){
-    this.getSubmitButton.click()
+    this.getSubmitButton().click()
   }
 
   // verifications
 
   verifyPageTitle(){
     this.getPageTitle().should('be.visible')
-  }
-
-  verifyFormSubmit(){
-    cy.get('div.offset3.span6').contains('Thank you for your comments')
   }
 
 }
