@@ -1,6 +1,6 @@
 import {homePage} from '../../support/PageObjects/HomePage'
 import {onlineBankingPage} from '../../support/PageObjects/OnlineBanking'
-import FeedbackPage from '../../support/PageObjects/FeedbackPage'
+import {feedbackPage} from '../../support/PageObjects/FeedbackPage'
 import {navbar} from '../../support/Fragments/Navbar'
 
 describe('test navbar functionality', () => {
@@ -15,7 +15,7 @@ describe('test navbar functionality', () => {
 
   it('verifies Feedback link Navbar Functionality', () => {
     navbar.clickFeedbackLink()
-    FeedbackPage.getUrl().should('include', 'feedback')
+    feedbackPage.getUrl().should('include', 'feedback')
   })
 
   it('verifies Home link Navbar Functionality', () => {

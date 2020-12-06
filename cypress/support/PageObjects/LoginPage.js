@@ -53,6 +53,12 @@ class LoginPage extends BasePage {
     this.fillInPassword(password)
     this.submitForm()
   }
+
+  loginWithValidUsernameAndPassword(){
+    cy.fixture('user').then( (usr) => {
+      this.login(usr.valid_username, usr.valid_password)
+    })
+  }
 }
 
 export const loginPage = new LoginPage();
