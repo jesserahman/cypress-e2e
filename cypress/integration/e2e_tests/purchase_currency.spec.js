@@ -1,35 +1,33 @@
-import LoginPage from '../../support/PageObjects/LoginPage'
-import PayBillsPage from '../../support/PageObjects/PageBillsPage'
-import AccountSummaryPage from '../../support/PageObjects/AccountSummaryPage'
-import Navbar from '../../support/Fragments/Navbar'
+import {loginPage} from '../../support/PageObjects/LoginPage'
+import {payBillsPage} from '../../support/PageObjects/PageBillsPage'
+import {accountSummaryPage} from '../../support/PageObjects/AccountSummaryPage'
+import {navbar} from '../../support/Fragments/Navbar'
 
 describe('Add new payee', () => {
   before(function() {
-    LoginPage.loadPage()
+    loginPage.loadPage()
     cy.fixture('user').then( (usr) => {
-      const username = usr.valid_username
-      const password = usr.valid_password
-      cy.login(username, password)
+      loginPage.login(usr.valid_username, usr.valid_password)
     })
 
-    AccountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
+    accountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
   })
 
   it('add new payee and verify success message', () => {
     let currencyAmount = 150;
 
-    Navbar.clickPayBillsTab()
-    PayBillsPage.clickPurchaseForeignCurrencyButton()
-    PayBillsPage.selectCurrency('Eurozone (euro)')
-    PayBillsPage.addCurrencyAmount(currencyAmount)
-    PayBillsPage.selectUSDCurrency()
-    PayBillsPage.clickCalculateCosts()
-    PayBillsPage.verifyConversionAmount(currencyAmount)
-    PayBillsPage.clickPurchase()
+    navbar.clickPayBillsTab()
+    payBillsPage.clickPurchaseForeignCurrencyButton()
+    fillOutAndSubmitPurchaseCurrencyForm(currencyAmount)
+    payBillsPage.getSuccessMessage().should('contain.text',  'Foreign currency cash was successfully purchased.')
   })
 
-  it('verifies the payment amount', () => {
-    PayBillsPage.verifySuccessMessage()
-  })
-
+  function fillOutAndSubmitPurchaseCurrencyForm(currencyAmount){
+    payBillsPage.selectCurrency('Eurozone (euro)')
+    payBillsPage.addCurrencyAmount(currencyAmount)
+    payBillsPage.selectUSDCurrency()
+    payBillsPage.clickCalculateCosts()
+    payBillsPage.getConversionAmount().should('contain.text', `${currencyAmount}`)
+    payBillsPage.clickPurchase()
+  }
 })

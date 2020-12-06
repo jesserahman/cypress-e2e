@@ -4,7 +4,7 @@ class HomePage extends BasePage {
   // add all selector strings
   url = 'http://zero.webappsecurity.com';
   searchField = '#searchTerm';
-  signInButton = '#signin_button'
+  signInButton = '#signin_button';
 
   loadPage() {
     cy.visit(this.url)
@@ -15,7 +15,7 @@ class HomePage extends BasePage {
   }
 
   clickSignInButton(){
-    cy.get(signInButton).click()
+    cy.get(this.signInButton).click()
   }
 }
 
