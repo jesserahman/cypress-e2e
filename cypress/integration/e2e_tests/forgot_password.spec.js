@@ -16,5 +16,4 @@ describe('test forgot password', () => {
     forgotPasswordPage.sendForgotPasswordEmail(email)
     forgotPasswordPage.getForgotPasswordSentMessageForEmail(email).should('be.visible')
   })
-
 })

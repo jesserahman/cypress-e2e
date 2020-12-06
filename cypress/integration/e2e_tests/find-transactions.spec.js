@@ -29,5 +29,4 @@ describe('Test Transfer Funds', () => {
     AccountActivityPage.clickFindButton()
     AccountActivityPage.verifySearchResults(description)
   })
-
 })
