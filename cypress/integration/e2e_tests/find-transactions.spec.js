@@ -1,32 +1,35 @@
-import LoginPage from '../../support/PageObjects/LoginPage'
-import AccountActivityPage from '../../support/PageObjects/AccountActivityPage'
-import AccountSummaryPage from '../../support/PageObjects/AccountSummaryPage'
-import Navbar from '../../support/Fragments/Navbar'
+import {loginPage} from '../../support/PageObjects/LoginPage'
+import {accountActivityPage} from '../../support/PageObjects/AccountActivityPage'
+import {accountSummaryPage} from '../../support/PageObjects/AccountSummaryPage'
+import {navbar} from '../../support/Fragments/Navbar'
 
-describe('Test Transfer Funds', () => {
+describe('View transactions for specific date range', () => {
   before(function() {
-    LoginPage.loadPage()
-    cy.fixture('user').then( (usr) => {
-      const username = usr.valid_username
-      const password = usr.valid_password
-      cy.login(username, password)
-    })
-
-    AccountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
+    loginPage.loadPage()
+    loginPage.loginWithValidUsernameAndPassword()
+    accountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
   })
 
-  it('add new payee and verify success message', () => {
+  it('should display a list of transactions in a specific date range', () => {
     let description = 'OFFICE SUPPLY';
 
-    Navbar.clickAccountActivityTab()
-    AccountActivityPage.clickFindTransactionsTab()
-    AccountActivityPage.fillOutDescription(description)
-    AccountActivityPage.fillOutFromDate('2012-09-04')
-    AccountActivityPage.fillOutToDate('2012-09-06')
-    AccountActivityPage.fillOutFromAmount('0')
-    AccountActivityPage.fillOutToAmount('100')
-    AccountActivityPage.selectType('WITHDRAWAL')
-    AccountActivityPage.clickFindButton()
-    AccountActivityPage.verifySearchResults(description)
+    navbar.clickAccountActivityTab()
+    accountActivityPage.clickFindTransactionsTab()
+    fillOutAndSubmitTransactionsTabForm(description)
+    accountActivityPage.getSearchResults()
+      .should('contain.text' , '2012-09-05')
+      .and('contain.text', description)
+      .and('contain.text', '50')
+    accountActivityPage.getNumberOfSearchResults().its('length').should('equal', 1)
   })
+
+  function fillOutAndSubmitTransactionsTabForm(description){
+    accountActivityPage.fillOutDescription(description)
+    accountActivityPage.fillOutFromDate('2012-09-04')
+    accountActivityPage.fillOutToDate('2012-09-06')
+    accountActivityPage.fillOutFromAmount('0')
+    accountActivityPage.fillOutToAmount('100')
+    accountActivityPage.selectType('WITHDRAWAL')
+    accountActivityPage.clickFindButton()
+  }
 })

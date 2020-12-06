@@ -3,17 +3,14 @@ import {payBillsPage} from '../../support/PageObjects/PageBillsPage'
 import {accountSummaryPage} from '../../support/PageObjects/AccountSummaryPage'
 import {navbar} from '../../support/Fragments/Navbar'
 
-describe('Add new payee', () => {
+describe('Purchase Currency', () => {
   before(function() {
     loginPage.loadPage()
-    cy.fixture('user').then( (usr) => {
-      loginPage.login(usr.valid_username, usr.valid_password)
-    })
-
+    loginPage.loginWithValidUsernameAndPassword()
     accountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
   })
 
-  it('add new payee and verify success message', () => {
+  it('fills out Purchase Currency form and verifies success message', () => {
     let currencyAmount = 150;
 
     navbar.clickPayBillsTab()

@@ -1,29 +1,27 @@
-import LoginPage from '../../support/PageObjects/LoginPage'
-import PayBillsPage from '../../support/PageObjects/PageBillsPage'
-import AccountSummaryPage from '../../support/PageObjects/AccountSummaryPage'
-import Navbar from '../../support/Fragments/Navbar'
+import {loginPage} from '../../support/PageObjects/LoginPage'
+import {payBillsPage} from '../../support/PageObjects/PageBillsPage'
+import {accountSummaryPage} from '../../support/PageObjects/AccountSummaryPage'
+import {navbar} from '../../support/Fragments/Navbar'
 
-describe('Add new payee', () => {
+describe('Make Payment', () => {
   before(function() {
-    LoginPage.loadPage()
-    cy.fixture('user').then( (usr) => {
-      const username = usr.valid_username
-      const password = usr.valid_password
-      cy.login(username, password)
-    })
-
-    AccountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
+    loginPage.loadPage()
+    loginPage.loginWithValidUsernameAndPassword()
+    accountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
   })
 
-  it('add new payee and verify success message', () => {
-    Navbar.clickPayBillsTab()
-    PayBillsPage.selectPayeeFromDropdown('Apple')
-    PayBillsPage.selectAccountFromDropdown('Credit Card')
-    PayBillsPage.enterAmount("40")
-    PayBillsPage.enterDate('2020-3-10 {enter}')
-    PayBillsPage.enterDescription('test')
-    PayBillsPage.clickPay()
-    PayBillsPage.verifyPaymentSuccess()
+  it('should successfully make a payment', () => {
+    navbar.clickPayBillsTab()
+    fillOutAndSubmitPaymentForm()
+    payBillsPage.getPaymentSuccess().should('contain.text', 'The payment was successfully submitted.')
   })
 
+  function fillOutAndSubmitPaymentForm(){
+    payBillsPage.selectPayeeFromDropdown('Apple')
+    payBillsPage.selectAccountFromDropdown('Credit Card')
+    payBillsPage.enterAmount("40")
+    payBillsPage.enterDate('2020-3-10 {enter}')
+    payBillsPage.enterDescription('test')
+    payBillsPage.clickPay()
+  }
 })

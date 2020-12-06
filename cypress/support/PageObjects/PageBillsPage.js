@@ -90,12 +90,12 @@ class PayBillPage extends BasePage {
     return cy.get('#alert_content')
   }
 
-  getAndVerifySuccessAlert(){
-    cy.get('#alert_content').should('contain.text', 'The new payee Payee User was successfully created.')
+  getSuccessAlert(){
+    return cy.get('#alert_content')
   }
 
-  verifyPaymentSuccess(){
-    cy.get('#alert_content').should('contain.text', 'The payment was successfully submitted.')
+  getPaymentSuccess(){
+    return cy.get('#alert_content')
   }
 
 }

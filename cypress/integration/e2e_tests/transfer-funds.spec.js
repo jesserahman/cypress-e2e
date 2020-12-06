@@ -6,10 +6,7 @@ import {navbar} from '../../support/Fragments/Navbar'
 describe('Test Transfer Funds', () => {
   before(function() {
     loginPage.loadPage()
-    cy.fixture('user').then( (usr) => {
-      loginPage.login(usr.valid_username, usr.valid_password)
-    })
-
+    loginPage.loginWithValidUsernameAndPassword()
     accountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
   })
 
