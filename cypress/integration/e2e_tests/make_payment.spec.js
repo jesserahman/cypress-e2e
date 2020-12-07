@@ -12,7 +12,12 @@ describe('Make Payment', () => {
 
   it('should successfully make a payment', () => {
     navbar.clickPayBillsTab()
+
+    cy.intercept('POST', '**/pay-bills-saved-payee.html').as('postPayment')
+
     fillOutAndSubmitPaymentForm()
+
+    cy.wait('@postPayment').its('response.statusCode').should('equal', 200)
     payBillsPage.getPaymentSuccess().should('contain.text', 'The payment was successfully submitted.')
   })
 
