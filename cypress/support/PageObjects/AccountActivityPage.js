@@ -1,6 +1,11 @@
 import BasePage from './BasePage'
 
 class AccountActivityPage extends BasePage {
+  // load page
+  loadPage(){
+    cy.visit('http://zero.webappsecurity.com/bank/account-activity.html')
+  }
+
   clickFindTransactionsTab(){
     cy.get('a').contains('Find Transactions').click()
   }

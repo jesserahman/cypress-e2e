@@ -1,20 +1,18 @@
 import {loginPage} from '../../support/PageObjects/LoginPage'
 import {transferFundsPage} from '../../support/PageObjects/TransferFundsPage'
-import {accountSummaryPage} from '../../support/PageObjects/AccountSummaryPage'
-import {navbar} from '../../support/Fragments/Navbar'
 
 describe('Test Transfer Funds', () => {
   before(function() {
     loginPage.loadPage()
-    loginPage.loginWithValidUsernameAndPassword()
-    accountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
+    Cypress.Cookies.debug(true)
+    cy.setCookie('JSESSIONID', '843CCF4F')
   })
 
   it('add new payee and verify success message', () => {
     let currencyAmount = 2500;
     let description = "test"
 
-    navbar.clickTranferFundsTab()
+    transferFundsPage.loadPage()
     fillOutTransferFundsPageForm(currencyAmount, description)
     transferFundsPage.verifySuccessMessage()
   })

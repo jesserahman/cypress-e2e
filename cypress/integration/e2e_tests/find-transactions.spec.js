@@ -1,19 +1,17 @@
 import {loginPage} from '../../support/PageObjects/LoginPage'
 import {accountActivityPage} from '../../support/PageObjects/AccountActivityPage'
-import {accountSummaryPage} from '../../support/PageObjects/AccountSummaryPage'
-import {navbar} from '../../support/Fragments/Navbar'
 
 describe('View transactions for specific date range', () => {
   before(function() {
     loginPage.loadPage()
-    loginPage.loginWithValidUsernameAndPassword()
-    accountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
+    Cypress.Cookies.debug(true)
+    cy.setCookie('JSESSIONID', '843CCF4F')
   })
 
   it('should display a list of transactions in a specific date range', () => {
     let description = 'OFFICE SUPPLY';
 
-    navbar.clickAccountActivityTab()
+    accountActivityPage.loadPage()
     accountActivityPage.clickFindTransactionsTab()
     fillOutAndSubmitTransactionsTabForm(description)
     accountActivityPage.getSearchResults()

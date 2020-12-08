@@ -1,17 +1,15 @@
 import {loginPage} from '../../support/PageObjects/LoginPage'
 import {payBillsPage} from '../../support/PageObjects/PageBillsPage'
-import {accountSummaryPage} from '../../support/PageObjects/AccountSummaryPage'
-import {navbar} from '../../support/Fragments/Navbar'
 
 describe('Add new payee', () => {
   before(function() {
     loginPage.loadPage()
-    loginPage.loginWithValidUsernameAndPassword();
-    accountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
+    Cypress.Cookies.debug(true)
+    cy.setCookie('JSESSIONID', '843CCF4F')
   })
 
   it('add new payee and verify success message', () => {
-    navbar.clickPayBillsTab()
+    payBillsPage.loadPage()
     payBillsPage.clickAndNewPayeeButton()
     fillOutAndSubmitNewPayeeForm()
     payBillsPage.getSuccessAlert().should('contain.text', 'The new payee Payee User was successfully created.')

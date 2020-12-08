@@ -1,6 +1,11 @@
 import BasePage from './BasePage'
 
 class TransferFundsPage extends BasePage {
+  // load page
+  loadPage(){
+    cy.visit('http://zero.webappsecurity.com/bank/transfer-funds.html')
+  }
+
   selectFromAccount(accountOption){
     cy.get('#tf_fromAccountId').select(`${accountOption}`)
   }

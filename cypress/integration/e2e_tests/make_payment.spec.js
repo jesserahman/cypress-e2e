@@ -5,7 +5,7 @@ describe('Make Payment', () => {
   before(function() {
     loginPage.loadPage()
     Cypress.Cookies.debug(true)
-    cy.setCookie('JSESSIONID', '9506D4CE')
+    cy.setCookie('JSESSIONID', '843CCF4F')
   })
 
   it('should successfully make a payment', () => {
