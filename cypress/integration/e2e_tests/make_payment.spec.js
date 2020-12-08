@@ -1,17 +1,15 @@
 import {loginPage} from '../../support/PageObjects/LoginPage'
 import {payBillsPage} from '../../support/PageObjects/PageBillsPage'
-import {accountSummaryPage} from '../../support/PageObjects/AccountSummaryPage'
-import {navbar} from '../../support/Fragments/Navbar'
 
 describe('Make Payment', () => {
   before(function() {
     loginPage.loadPage()
-    loginPage.loginWithValidUsernameAndPassword()
-    accountSummaryPage.getUrl().should('include', 'bank/account-summary.html')
+    Cypress.Cookies.debug(true)
+    cy.setCookie('JSESSIONID', '9506D4CE')
   })
 
   it('should successfully make a payment', () => {
-    navbar.clickPayBillsTab()
+    payBillsPage.loadPage()
 
     cy.intercept('POST', '**/pay-bills-saved-payee.html').as('postPayment')
 

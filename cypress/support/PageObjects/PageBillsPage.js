@@ -1,6 +1,11 @@
 import BasePage from './BasePage'
 
 class PayBillPage extends BasePage {
+  // load page
+  loadPage(){
+    cy.visit('http://zero.webappsecurity.com/bank/pay-bills.html')
+  }
+
   // click functions
   clickAndNewPayeeButton() {
     cy.get('a').contains('Add New Payee').click()
